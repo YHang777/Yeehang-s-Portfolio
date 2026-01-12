@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeehang | Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- APPLE & MATERIAL HYBRID THEME --- */
+        :root {
+            --apple-grey: #f5f5f7;
+            --text-dark: #1d1d1f;
+            --text-light: #86868b;
+            --accent-blue: #0066cc;
+            --card-radius: 20px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Glassmorphism Navbar */
+        nav {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: none;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            height: 64px;
+            line-height: 64px;
+        }
+        nav .brand-logo {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+        }
+        nav ul a {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        nav ul a:hover {
+            background-color: transparent;
+            color: var(--accent-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 3.5rem;
+        }
+        .hero p.subtitle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* --- FLEXBOX GRID FIX --- */
+        /* This forces the row to act like a grid, solving the gap issue */
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        /* Ensures columns stretch to equal height */
+        .flex-row .col {
+            display: flex;
+            margin-bottom: 20px; /* Add space between rows */
+        }
+
+        /* Bento Card Design */
+        .card-panel.bento-card {
+            background: var(--apple-grey);
+            border-radius: var(--card-radius);
+            box-shadow: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%; /* Fill the flex column */
+            height: 100%; /* Fill height */
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        .card-panel.bento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+        
+        /* Link Overlay */
+        .card-link-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        /* Image Area */
+        .card-image-area {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            overflow: hidden;
+            position: relative;
+        }
+        .card-image-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .card-panel.bento-card:hover .card-image-area img {
+            transform: scale(1.05);
+        }
+
+        /* Content Area */
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .bento-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+        .bento-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .chip-custom {
+            display: inline-block;
+            padding: 4px 10px;
+            margin: 2px 2px 2px 0;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #e5e5ea;
+            color: #333;
+        }
+        
+        .project-link {
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 15px;
+            position: relative;
+            z-index: 20;
+        }
+        .project-link i { font-size: 16px; margin-left: 4px; }
+
+        @media only screen and (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p.subtitle { font-size: 1.2rem; }
+            .card-image-area { height: 180px; }
+        }
+
+        /* Modal Image Styling */
+        .modal-screenshot {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #eee;
+        }
+
+        .module-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0066cc; 
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+        }
+        .module-header i { margin-right: 10px; }
+                
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo">LimYeehang</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#projects">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero container">
+        <h1>Hi, I'm Yeehang.</h1>
+        <p class="subtitle">Software Engineering Student.<br>Specializing in Mobile Apps, and UX Design.</p>
+    </section>
+
+    <section id="projects" class="container">
+        <h2 class="section-header">Some Projects Done</h2>
+        
+        <div class="row flex-row">
+            
+            <div class="col s12 m5 l5">
+                <div class="card-panel bento-card">
+                    <a href="projects/IP.html" class="card-link-overlay"></a> 
+                    <div class="card-image-area" style="background-color: white;">
+                        <img src="../images/fruitdetection.png" alt="Image Processing">
+                    </div>
+                    <div class="card-content">
+                        <div class="bento-title">Smart Fruit Store Dashboard</div>
+                        <p class="bento-desc">
+                            Automated inventory system using Computer Vision. Features a dashboard comparing <strong>YOLOv8</strong> and <strong>Faster R-CNN</strong> models.
+                        </p>
+                        <div>
+                            <span class="chip-custom">Python</span>
+                            <span class="chip-custom">OpenCV</span>
+                            <span class="chip-custom">YOLOv8</span>
+                        </div>
+                        <a href="projects/IP.html" class="project-link">
+                            View Details <i class="material-icons">arrow_forward</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m7 l7">
+                <div class="card-panel bento-card">
+                    <div class="card-image-area">
+                         <img src="../images/hci-design.png" alt="HCI Social App Design" onerror="this.src='https://placehold.co/600x400/png?text=Image+Not+Found'">
+                    </div>
+                    <div class="card-content">
+                        <div class="bento-title">Social Content Filter (HCI)</div>
+                        <p class="bento-desc">
+                            High-fidelity prototype focusing on user safety with a <strong>"Hidden Words"</strong> feature.
+                        </p>
+                        <div>
+                            <span class="chip-custom">Figma</span>
+                            <span class="chip-custom">UI/UX</span>
+                            <span class="chip-custom">HCI</span>
+                        </div>
+                        <a href="https://www.figma.com/design/Pd9o132mNWiKoZA7KRARfB/Group4_Design?node-id=3-656&p=f&t=likM1NvLslUELYzx-0" target="_blank" class="project-link">
+                            View Prototype <i class="material-icons">arrow_forward</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4 l4">
+                <div class="card-panel bento-card">
+                    <div class="card-content" style="justify-content: center; text-align: center; padding-top: 40px; padding-bottom: 40px;">
+                        <i class="material-icons" style="font-size: 50px; color: #2196F3; margin-bottom: 15px;">view_in_ar</i>
+                        <div class="bento-title">AR Furniture App (FYP)</div>
+                        <p class="bento-desc">
+                            Visualizing furniture in real-time using Augmented Reality before purchasing.
+                        </p>
+                        <div>
+                            <span class="chip-custom">Flutter</span>
+                            <span class="chip-custom">AR Core</span>
+                        </div>
+                        <a href="projects/fyp.html"  class="project-link">
+                            View Details <i class="material-icons">arrow_forward</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m8 l8">
+                <div class="card-panel bento-card">
+                    <a href="projects/db.html" class="card-link-overlay"></a>
+                    <div class="card-image-area" style="background-color: #000;"> 
+                        <img src="../images/db-risk-report.png" alt="Database Risk Report" style="object-fit: contain;" >
+                    </div>
+                    <div class="card-content">
+                        <div class="bento-title">Advanced Database</div>
+                        <p class="bento-desc">
+                            Backend system generating CLI reports for Risk Assessment, Fine Calculations, and Trend Analysis using complex SQL.
+                        </p>
+                        <div>
+                            <span class="chip-custom">SQL / PL/SQL</span>
+                            <span class="chip-custom">Data Analysis</span>
+                        </div>
+                        <a href="projects/db.html" class="project-link">
+                            View Reports <i class="material-icons">arrow_forward</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m12 l12">
+                <div class="card-panel bento-card">
+                    <a href="projects/collabdev.html" class="card-link-overlay"></a>
+                    <div class="card-image-area" style="background-color: white;"> 
+                        <img src="../images/safehaven.png" alt="SafeHaven App" style="object-fit: contain;">
+                    </div>
+                    <div class="card-content">
+                        <div class="bento-title">Collaboration Development : SafeHaven, Mental Health Platform</div>
+                        <p class="bento-desc">
+                            A collaborative full-stack project designed to provide mental health support. 
+                            Key features include <strong>Professional Therapy Video Sessions</strong>, a <strong>Community Forum</strong> with automated content moderation, and a <strong>Mood-Based Song Recommendation</strong> system using the YouTube API.
+                        </p>
+                        <div>
+                            <span class="chip-custom">PostgreSQL</span>
+                            <span class="chip-custom">YouTube API</span>
+                            <span class="chip-custom">Full Stack</span>
+                        </div>
+                        <a href="projects/collabdev.html" class="project-link">
+                            View Details <i class="material-icons">arrow_forward</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="container" style="padding: 60px 0;">
+        <div class="card-panel bento-card" style="text-align: center; background-color: #1d1d1f; color: #fff; padding: 50px 20px;">
+            <h3 style="font-weight: 700; margin-top: 0; color: #fff;">Get In Touch.</h3>
+            <p style="color: #aaa; max-width: 500px; margin: 0 auto 40px auto;">
+                I am currently a student at TAR UMT seeking opportunities. Feel free to contact me via Email or WhatsApp.
+            </p>
+            
+            <div class="row">
+                <div class="col s12 m6">
+                    <div style="margin-bottom: 20px;">
+                        <i class="material-icons" style="font-size: 30px; color: #0066cc;">email</i>
+                        <div style="margin-top: 10px; font-size: 1.1rem;">
+                            <a href="mailto:limyh-pm22@student.tarc.edu.my" style="color: #fff; text-decoration: none;">limyh-pm22@student.tarc.edu.my</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div style="margin-bottom: 20px;">
+                        <i class="material-icons" style="font-size: 30px; color: #25D366;">chat</i> 
+                        <div style="margin-top: 10px; font-size: 1.1rem;">
+                            <a href="https://wa.me/60166910083" target="_blank" style="color: #fff; text-decoration: none;">016-6910083 (WhatsApp)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Furniture (FYP) | Yeehang</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --text-dark: #1d1d1f; --accent-blue: #0066cc; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; padding-bottom: 80px;}
+        .back-nav { padding: 20px 0; border-bottom: 1px solid #eee; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100;}
+        .back-link { display: flex; align-items: center; color: var(--accent-blue); font-weight: 600; text-decoration: none; }
+        .project-header { padding: 60px 0 40px 0; }
+        .project-title { font-size: 2.5rem; font-weight: 700; margin: 0; }
+        .project-subtitle { font-size: 1.2rem; color: #666; margin-top: 10px; }
+        
+        /* Grid for Screenshots */
+        .gallery-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 40px; } 
+        .gallery-item { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: white; border: 1px solid #eee; justify-items: center;}
+        .gallery-item img { width: 100%; height: auto; display: block; text-align: center;}
+        .gallery-caption { padding: 20px; font-size: 1rem; color: #333; background: #fff; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <div class="container">
+            <a href="../index.html" class="back-link">
+                <i class="material-icons">arrow_back</i> Back to Portfolio
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <header class="project-header">
+            <h1 class="project-title">AR Furniture App (FYP)</h1>
+            <p class="project-subtitle">Augmented Reality Visualization & Interior Design</p>
+            <div style="margin-top: 20px;">
+                <span class="new badge blue" data-badge-caption="Flutter"></span>
+                <span class="new badge blue" data-badge-caption="ARCore"></span>
+                <span class="new badge blue" data-badge-caption="Python Backend"></span>
+                <span class="new badge blue" data-badge-caption="Firebase"></span>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col s12 m10">
+                <h5>Project Overview</h5>
+                <p>
+                    This project addresses the common challenge of "visualizing before buying." It is a mobile application that allows users to place high-fidelity 3D models of furniture into their real-world environment using Augmented Reality.
+                    The system ensures that the virtual furniture scales correctly to the room, helping users make informed purchasing decisions.
+                </p>
+                <p><strong>Key Features Developed:</strong></p>
+                <ul class="browser-default" style="padding-left: 20px;">
+                    <li><strong>Smart Catalog:</strong> A cloud-connected inventory system fetching real-time data and 3D assets from Firebase.</li>
+                    <li><strong>AR Visualization Engine:</strong> Built with ARCore to detect floor planes and anchor 3D objects with stability.</li>
+                    <li><strong>Model Management (Python):</strong> A backend script that optimizes and processes raw 3D model files for mobile performance before storage.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h5>System Design & Interface</h5>
+        <div class="gallery-grid">
+            
+            <div class="gallery-item">
+                <img src="../images/fyp_catalog.png" alt="Product Catalog Interface" style="max-width: 100%;" class="center-align">
+                <div class="gallery-caption">
+                    <strong>1. Product Catalog Interface:</strong> 
+                    Users can browse categories (e.g., Chairs, Tables). The UI displays essential details like price and dimensions, with a "View in AR" button to launch the camera.
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/fyp_arview.png" alt="AR Visualization" style="max-width: 100%;" class="center-align">
+                <div class="gallery-caption">
+                    <strong>2. Real-time AR Placement:</strong> 
+                    Using surface detection, the app identifies the floor and places the 3D model. Users can rotate and move the furniture to see exactly how it fits in their space.
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/fyp_backend.png" alt="Backend System" style="max-width: 100%;" class="center-align">
+                <div class="gallery-caption">
+                    <strong>3. Admin & Backend Processing:</strong> 
+                    The admin side utilizes Python scripts to handle 3D model uploads. It ensures models are optimized for mobile rendering and updates the Firebase Firestore database seamlessly.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
