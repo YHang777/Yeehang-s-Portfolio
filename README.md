@@ -46,6 +46,3 @@ You can view my full portfolio website here:
 
 ---
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Yeehang-s-Portfolio&label=Profile%20Views&color=0e75b6&style=flat" alt="Yeehang" />
-</p>
