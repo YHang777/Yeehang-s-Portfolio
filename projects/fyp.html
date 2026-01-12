@@ -16,11 +16,57 @@
         .project-title { font-size: 2.5rem; font-weight: 700; margin: 0; }
         .project-subtitle { font-size: 1.2rem; color: #666; margin-top: 10px; }
         
-        /* Grid for Screenshots */
-        .gallery-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 40px; } 
-        .gallery-item { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: white; border: 1px solid #eee; justify-items: center;}
-        .gallery-item img { width: 100%; height: auto; display: block; text-align: center;}
-        .gallery-caption { padding: 20px; font-size: 1rem; color: #333; background: #fff; border-top: 1px solid #eee; }
+        /* --- GRID LAYOUT FIX --- */
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; /* Creates 2 equal columns (2x2 layout) */
+            gap: 40px; 
+            margin-top: 40px; 
+        } 
+        
+        .gallery-item { 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            background: white; 
+            border: 1px solid #eee; 
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Image container to control sizing better */
+        .image-container {
+            padding: 20px;
+            background: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* Ensures images take up available space */
+        }
+
+        .gallery-item img { 
+            max-width: 100%; 
+            height: auto; 
+            max-height: 500px; /* Prevents extremely tall images */
+            object-fit: contain;
+            display: block; 
+        }
+        
+        .gallery-caption { 
+            padding: 20px; 
+            font-size: 1rem; 
+            color: #333; 
+            background: #fff; 
+            border-top: 1px solid #eee; 
+            height: 100%; /* Ensures captions align if texts vary in length */
+        }
+
+        /* --- RESPONSIVE: Stack on Mobile --- */
+        @media only screen and (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr; /* Switch to 1 column on mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -41,7 +87,7 @@
             <div style="margin-top: 20px;">
                 <span class="new badge blue" data-badge-caption="Flutter"></span>
                 <span class="new badge blue" data-badge-caption="ARCore"></span>
-                <span class="new badge blue" data-badge-caption="Python Backend"></span>
+                <span class="new badge blue" data-badge-caption="Gen AI"></span>
                 <span class="new badge blue" data-badge-caption="Firebase"></span>
             </div>
         </header>
@@ -51,22 +97,26 @@
                 <h5>Project Overview</h5>
                 <p>
                     This project addresses the common challenge of "visualizing before buying." It is a mobile application that allows users to place high-fidelity 3D models of furniture into their real-world environment using Augmented Reality.
-                    The system ensures that the virtual furniture scales correctly to the room, helping users make informed purchasing decisions.
+                    The system integrates AI assistance to help users choose furniture and saves layout designs for future reference.
                 </p>
                 <p><strong>Key Features Developed:</strong></p>
                 <ul class="browser-default" style="padding-left: 20px;">
-                    <li><strong>Smart Catalog:</strong> A cloud-connected inventory system fetching real-time data and 3D assets from Firebase.</li>
-                    <li><strong>AR Visualization Engine:</strong> Built with ARCore to detect floor planes and anchor 3D objects with stability.</li>
-                    <li><strong>Model Management (Python):</strong> A backend script that optimizes and processes raw 3D model files for mobile performance before storage.</li>
+                    <li><strong>Smart Catalog:</strong> Cloud-connected inventory system fetching real-time data from Firebase.</li>
+                    <li><strong>AR Visualization Engine:</strong> Detects floor planes to anchor 3D objects with stability.</li>
+                    <li><strong>Design Persistence:</strong> Saves AR placement coordinates so users can recover their room layout later.</li>
+                    <li><strong>AI Consultant:</strong> Integrated chatbot for furniture inquiries with smart cart actions.</li>
                 </ul>
             </div>
         </div>
 
         <h5>System Design & Interface</h5>
+        
         <div class="gallery-grid">
             
             <div class="gallery-item">
-                <img src="../images/fyp_catalog.png" alt="Product Catalog Interface" style="max-width: 100%;" class="center-align">
+                <div class="image-container">
+                    <img src="../images/productcatalog.png" alt="Product Catalog Interface">
+                </div>
                 <div class="gallery-caption">
                     <strong>1. Product Catalog Interface:</strong> 
                     Users can browse categories (e.g., Chairs, Tables). The UI displays essential details like price and dimensions, with a "View in AR" button to launch the camera.
@@ -74,7 +124,9 @@
             </div>
 
             <div class="gallery-item">
-                <img src="../images/fyp_arview.png" alt="AR Visualization" style="max-width: 100%;" class="center-align">
+                <div class="image-container">
+                    <img src="../images/arview.png" alt="AR Visualization">
+                </div>
                 <div class="gallery-caption">
                     <strong>2. Real-time AR Placement:</strong> 
                     Using surface detection, the app identifies the floor and places the 3D model. Users can rotate and move the furniture to see exactly how it fits in their space.
@@ -82,10 +134,23 @@
             </div>
 
             <div class="gallery-item">
-                <img src="../images/fyp_backend.png" alt="Backend System" style="max-width: 100%;" class="center-align">
+                <div class="image-container">
+                    <img src="../images/saveddesign.png" alt="Saved Layouts">
+                </div>
                 <div class="gallery-caption">
-                    <strong>3. Admin & Backend Processing:</strong> 
-                    The admin side utilizes Python scripts to handle 3D model uploads. It ensures models are optimized for mobile rendering and updates the Firebase Firestore database seamlessly.
+                    <strong>3. Saved Designs & Layout Recovery:</strong> 
+                    Users can save their current AR session. This stores the specific placement and orientation of furniture, allowing them to reload a previous room arrangement instantly without needing to redesign from scratch.
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="image-container">
+                    <img src="../images/ai.png" alt="AI Chatbot Interface">
+                </div>
+                <div class="gallery-caption">
+                    <strong>4. AI Interior Assistant:</strong> 
+                    An integrated AI module allows users to ask questions about furniture materials or style advice. It features an instant "Add to Cart" button for convenience.
+                    <br><em style="font-size: 0.9rem; color: #666;">(Future Roadmap: Implementing auto-popups where the AI suggests items based on keywords detected in the conversation.)</em>
                 </div>
             </div>
 
